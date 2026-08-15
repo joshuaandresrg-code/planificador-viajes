@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VibeVoyage - Planificador Completo</title>
+    <title>VibeVoyage - Planificador Profesional de Viajes</title>
+    <!-- Tailwind CSS desde CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -22,99 +23,110 @@
             }
         }
     </script>
+    <!-- Iconos Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-        }
     </style>
 </head>
-<body class="bg-[#FFFAF0] min-h-screen text-vibeIndigo flex flex-col">
+<body class="bg-[#FFFAF0] min-h-screen text-vibeIndigo flex flex-col antialiased selection:bg-vibeCoral selection:text-white">
 
     <!-- Encabezado y Navegación principal -->
-    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-slate-100 px-6 py-4 flex justify-between items-center shadow-sm">
-        <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-vibeVerde via-vibeAzul to-vibeCoral flex items-center justify-center text-white font-bold text-lg shadow-sm">V</div>
-            <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-vibeIndigo to-vibePurpura bg-clip-text text-transparent">VibeVoyage</span>
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-40 border-b border-slate-100 px-4 md:px-8 py-3.5 flex justify-between items-center shadow-sm">
+        <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-vibeVerde via-vibePurpura to-vibeCoral flex items-center justify-center text-white font-bold text-xl shadow-md">
+                V
+            </div>
+            <div>
+                <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-vibeIndigo via-vibePurpura to-vibeCoral bg-clip-text text-transparent block leading-none">VibeVoyage</span>
+                <span class="text-[10px] text-slate-400 font-semibold tracking-wider uppercase">Travel Planner</span>
+            </div>
         </div>
         
-        <nav id="mainNav" class="flex items-center gap-2 bg-slate-100 p-1 rounded-xl text-sm font-medium text-slate-600">
-            <button onclick="cambiarPestaña('descubrir')" id="btn-descubrir" class="nav-btn px-4 py-2 bg-gradient-to-r from-vibeCoral to-vibePurpura text-white shadow-md rounded-lg transition-all flex items-center gap-1.5">
+        <nav id="mainNav" role="tablist" class="flex items-center gap-1 bg-slate-100/80 p-1 rounded-2xl text-xs font-semibold text-slate-600">
+            <button onclick="cambiarPestaña('descubrir')" id="btn-descubrir" role="tab" aria-selected="true" class="nav-btn px-4 py-2 bg-gradient-to-r from-vibeCoral to-vibePurpura text-white shadow-md rounded-xl transition-all flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-vibeCoral">
                 <i data-lucide="compass" class="w-4 h-4"></i> Descubrir
             </button>
-            <button onclick="cambiarPestaña('itinerario')" id="btn-itinerario" class="nav-btn px-4 py-2 rounded-lg transition-all flex items-center gap-1.5">
+            <button onclick="cambiarPestaña('itinerario')" id="btn-itinerario" role="tab" aria-selected="false" class="nav-btn px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-vibeCoral">
                 <i data-lucide="calendar" class="w-4 h-4"></i> Itinerario
             </button>
-            <button onclick="cambiarPestaña('panel')" id="btn-panel" class="nav-btn px-4 py-2 rounded-lg transition-all flex items-center gap-1.5">
+            <button onclick="cambiarPestaña('panel')" id="btn-panel" role="tab" aria-selected="false" class="nav-btn px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-vibeCoral">
                 <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Panel
             </button>
         </nav>
     </header>
 
-    <div class="flex-1 max-w-7xl w-full mx-auto p-6">
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8">
 
         <!-- Pestaña Descubrir -->
         <section id="pes-descubrir" class="tab-content space-y-6">
-            <div>
-                <h1 class="text-3xl font-bold tracking-tight text-vibeIndigo mb-1">Descubre Tu Próxima Aventura</h1>
-                <p class="text-slate-500 text-sm">Explora destinos increíbles seleccionados especialmente para ti.</p>
+            <div class="flex justify-between items-end flex-wrap gap-4">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-vibeIndigo mb-1">Descubre Tu Próxima Aventura</h1>
+                    <p class="text-slate-500 text-xs md:text-sm">Explora destinos internacionales con imágenes e información realista.</p>
+                </div>
             </div>
             
-            <div class="max-w-xl relative">
-                <i data-lucide="search" class="w-5 h-5 text-slate-400 absolute left-4 top-3.5"></i>
-                <input type="text" id="inputBusqueda" oninput="filtrarDestinos()" placeholder="Buscar destinos por nombre o país..." class="w-full bg-white rounded-2xl pl-12 pr-4 py-3.5 border border-transparent shadow-sm text-sm focus:outline-none focus:border-vibeCoral transition-all">
+            <!-- Búsqueda y Filtros -->
+            <div class="flex flex-col md:flex-row gap-3 justify-between items-center">
+                <div class="w-full md:max-w-md relative">
+                    <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-4 top-3.5"></i>
+                    <input type="text" id="inputBusqueda" oninput="filtrarDestinos()" placeholder="Buscar por país, ciudad o actividad..." class="w-full bg-white rounded-2xl pl-11 pr-4 py-3 border border-slate-100 shadow-sm text-xs md:text-sm focus:outline-none focus:border-vibeCoral transition-all">
+                </div>
+
+                <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+                    <label for="selectOrdenPrecio" class="text-xs text-slate-400 font-bold whitespace-nowrap">Ordenar por:</label>
+                    <select id="selectOrdenPrecio" onchange="filtrarDestinos()" class="bg-white text-xs font-semibold text-slate-600 px-3 py-3 rounded-2xl border border-slate-100 shadow-sm focus:outline-none focus:border-vibeCoral">
+                        <option value="defecto">Recomendados</option>
+                        <option value="asc">Precio: Menor a Mayor</option>
+                        <option value="desc">Precio: Mayor a Menor</option>
+                    </select>
+                </div>
             </div>
 
             <!-- Categorías -->
-            <div class="flex gap-2 text-xs font-semibold">
-                <button onclick="seleccionarCategoria('Todo')" id="cat-Todo" class="btn-cat bg-vibeIndigo text-white px-4 py-2 rounded-full transition-all">Todo</button>
-                <button onclick="seleccionarCategoria('Playa')" id="cat-Playa" class="btn-cat bg-white border border-slate-200 text-slate-600 px-4 py-2 rounded-full hover:bg-slate-50 transition-all">Playa</button>
-                <button onclick="seleccionarCategoria('Ciudad')" id="cat-Ciudad" class="btn-cat bg-white border border-slate-200 text-slate-600 px-4 py-2 rounded-full hover:bg-slate-50 transition-all">Ciudad</button>
-                <button onclick="seleccionarCategoria('Aventura')" id="cat-Aventura" class="btn-cat bg-white border border-slate-200 text-slate-600 px-4 py-2 rounded-full hover:bg-slate-50 transition-all">Aventura</button>
+            <div class="flex gap-2 text-xs font-semibold overflow-x-auto pb-1">
+                <button onclick="seleccionarCategoria('Todo')" id="cat-Todo" aria-pressed="true" class="btn-cat bg-vibeIndigo text-white px-4 py-2 rounded-full transition-all focus:outline-none">Todo</button>
+                <button onclick="seleccionarCategoria('Playa')" id="cat-Playa" aria-pressed="false" class="btn-cat bg-white border border-slate-200 text-slate-600 px-4 py-2 rounded-full hover:bg-slate-50 transition-all focus:outline-none">🏖️ Playa</button>
+                <button onclick="seleccionarCategoria('Ciudad')" id="cat-Ciudad" aria-pressed="false" class="btn-cat bg-white border border-slate-200 text-slate-600 px-4 py-2 rounded-full hover:bg-slate-50 transition-all focus:outline-none">🏙️ Ciudad</button>
+                <button onclick="seleccionarCategoria('Aventura')" id="cat-Aventura" aria-pressed="false" class="btn-cat bg-white border border-slate-200 text-slate-600 px-4 py-2 rounded-full hover:bg-slate-50 transition-all focus:outline-none">🧗 Aventura</button>
             </div>
 
-            <!-- Contenedor de Destinos -->
-            <div id="gridDestinos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            <div id="gridDestinos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </section>
 
         <!-- Pestaña Itinerario -->
         <section id="pes-itinerario" class="tab-content hidden space-y-6">
             <div class="flex justify-between items-center flex-wrap gap-4">
                 <div>
-                    <h1 class="text-3xl font-bold tracking-tight text-vibeIndigo">Itinerario Personalizado</h1>
-                    <p class="text-slate-500 text-sm">Organiza los eventos de tu viaje día a día.</p>
+                    <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-vibeIndigo">Itinerario Personalizado</h1>
+                    <p class="text-slate-500 text-xs md:text-sm">Organiza las actividades cronológicas de tu viaje.</p>
                 </div>
-                <button onclick="abrirModalEvento()" class="w-12 h-12 rounded-full bg-gradient-to-r from-vibeCoral to-vibePurpura text-white shadow-lg flex items-center justify-center font-bold text-xl hover:scale-105 transition-all">
-                    <i data-lucide="plus"></i>
+                <button onclick="abrirModalEvento()" class="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-vibeCoral to-vibePurpura text-white shadow-lg flex items-center gap-2 font-bold text-xs hover:scale-105 transition-all focus:outline-none">
+                    <i data-lucide="plus" class="w-4 h-4"></i> Agregar Actividad
                 </button>
             </div>
 
-            <!-- Configuración modificable del Itinerario -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm text-center">
-                    <span class="text-xs text-slate-400 font-medium block mb-1">Duración</span>
-                    <input type="text" id="itiDuracion" value="5 Días" onchange="actualizarInfoItinerario()" class="font-bold text-lg text-vibeIndigo text-center w-full bg-slate-50 rounded-lg py-1 border border-transparent focus:border-vibeCoral focus:outline-none">
+                <div class="bg-white p-4 rounded-3xl border border-slate-100 shadow-sm text-center space-y-1">
+                    <span class="text-[10px] text-slate-400 font-bold block uppercase tracking-wider">Duración Total</span>
+                    <input type="text" id="itiDuracion" value="5 Días" onchange="actualizarInfoItinerario()" class="font-bold text-base md:text-lg text-vibeIndigo text-center w-full bg-slate-50 rounded-xl py-1 border border-transparent focus:border-vibeCoral focus:outline-none">
                 </div>
-                <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm text-center">
-                    <span class="text-xs text-slate-400 font-medium block mb-1">Destinos</span>
-                    <input type="text" id="itiDestinos" value="Venecia, Italia" onchange="actualizarInfoItinerario()" class="font-bold text-lg text-vibeIndigo text-center w-full bg-slate-50 rounded-lg py-1 border border-transparent focus:border-vibeCoral focus:outline-none">
+                <div class="bg-white p-4 rounded-3xl border border-slate-100 shadow-sm text-center space-y-1">
+                    <span class="text-[10px] text-slate-400 font-bold block uppercase tracking-wider">Destino Principal</span>
+                    <input type="text" id="itiDestinos" value="Venecia, Italia" onchange="actualizarInfoItinerario()" class="font-bold text-base md:text-lg text-vibeIndigo text-center w-full bg-slate-50 rounded-xl py-1 border border-transparent focus:border-vibeCoral focus:outline-none">
                 </div>
-                <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm text-center">
-                    <span class="text-xs text-slate-400 font-medium block mb-1">Presupuesto ($)</span>
-                    <input type="number" id="itiPresupuesto" value="1200" onchange="actualizarInfoItinerario()" class="font-bold text-lg text-vibeVerde text-center w-full bg-slate-50 rounded-lg py-1 border border-transparent focus:border-vibeCoral focus:outline-none">
+                <div class="bg-white p-4 rounded-3xl border border-slate-100 shadow-sm text-center space-y-1">
+                    <span class="text-[10px] text-slate-400 font-bold block uppercase tracking-wider">Presupuesto ($ USD)</span>
+                    <input type="number" id="itiPresupuesto" value="1200" min="0" onchange="actualizarInfoItinerario()" class="font-bold text-base md:text-lg text-vibeVerde text-center w-full bg-slate-50 rounded-xl py-1 border border-transparent focus:border-vibeCoral focus:outline-none">
                 </div>
-                <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm text-center">
-                    <span class="text-xs text-slate-400 font-medium block mb-1">Viajeros</span>
-                    <input type="number" id="itiViajeros" value="2" min="1" onchange="actualizarInfoItinerario()" class="font-bold text-lg text-vibePurpura text-center w-full bg-slate-50 rounded-lg py-1 border border-transparent focus:border-vibeCoral focus:outline-none">
+                <div class="bg-white p-4 rounded-3xl border border-slate-100 shadow-sm text-center space-y-1">
+                    <span class="text-[10px] text-slate-400 font-bold block uppercase tracking-wider">Viajeros</span>
+                    <input type="number" id="itiViajeros" value="2" min="1" onchange="actualizarInfoItinerario()" class="font-bold text-base md:text-lg text-vibePurpura text-center w-full bg-slate-50 rounded-xl py-1 border border-transparent focus:border-vibeCoral focus:outline-none">
                 </div>
             </div>
 
-            <!-- Lista de eventos del Itinerario -->
             <div id="listaEventos" class="space-y-4"></div>
         </section>
 
@@ -122,119 +134,187 @@
         <section id="pes-panel" class="tab-content hidden grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div class="lg:col-span-2 space-y-6">
                 <div>
-                    <h1 class="text-3xl font-bold tracking-tight text-vibeIndigo mb-1">Panel del Viaje</h1>
-                    <p class="text-slate-500 text-sm">Resumen en tiempo real según tus selecciones e itinerario.</p>
+                    <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-vibeIndigo mb-1">Panel Resumen</h1>
+                    <p class="text-slate-500 text-xs md:text-sm">Monitoreo en tiempo real de favoritos y asistente virtual.</p>
                 </div>
 
-                <!-- Resumen Dinámico basado en interacción del usuario -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3">
-                        <div class="p-3 bg-rose-100 text-vibeCoral rounded-xl"><i data-lucide="heart" class="w-6 h-6"></i></div>
+                    <div class="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-4">
+                        <div class="p-3 bg-rose-100/70 text-vibeCoral rounded-2xl"><i data-lucide="heart" class="w-6 h-6"></i></div>
                         <div>
-                            <span class="text-xs text-slate-400 block font-bold">Favoritos</span>
-                            <span id="panelNumFavoritos" class="text-xl font-bold text-vibeIndigo">0</span>
+                            <span class="text-[10px] text-slate-400 block font-bold uppercase tracking-wider">Favoritos</span>
+                            <span id="panelNumFavoritos" class="text-2xl font-bold text-vibeIndigo">0</span>
                         </div>
                     </div>
-                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3">
-                        <div class="p-3 bg-indigo-100 text-vibeIndigo rounded-xl"><i data-lucide="calendar" class="w-6 h-6"></i></div>
+                    <div class="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-4">
+                        <div class="p-3 bg-indigo-100/70 text-vibeIndigo rounded-2xl"><i data-lucide="calendar" class="w-6 h-6"></i></div>
                         <div>
-                            <span class="text-xs text-slate-400 block font-bold">Eventos Programados</span>
-                            <span id="panelNumEventos" class="text-xl font-bold text-vibeIndigo">0</span>
+                            <span class="text-[10px] text-slate-400 block font-bold uppercase tracking-wider">Actividades</span>
+                            <span id="panelNumEventos" class="text-2xl font-bold text-vibeIndigo">0</span>
                         </div>
                     </div>
-                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3">
-                        <div class="p-3 bg-emerald-100 text-vibeVerde rounded-xl"><i data-lucide="dollar-sign" class="w-6 h-6"></i></div>
+                    <div class="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-4">
+                        <div class="p-3 bg-emerald-100/70 text-vibeVerde rounded-2xl"><i data-lucide="dollar-sign" class="w-6 h-6"></i></div>
                         <div>
-                            <span class="text-xs text-slate-400 block font-bold">Costo Estimado</span>
-                            <span id="panelCostoEventos" class="text-xl font-bold text-vibeVerde">$0.00</span>
+                            <span class="text-[10px] text-slate-400 block font-bold uppercase tracking-wider">Itinerario ($)</span>
+                            <span id="panelCostoEventos" class="text-lg font-bold text-vibeVerde">$0.00 USD</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Chat interactivo -->
-                <div class="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col h-[320px] justify-between">
-                    <div id="chatBox" class="flex-1 overflow-y-auto space-y-3 text-sm pr-2">
-                        <div><span class="text-[11px] font-bold text-slate-400">Sara</span><p class="bg-slate-100 p-2 rounded-xl mt-0.5 max-w-[80%] text-xs">¡Asegúrate de guardar tus destinos favoritos en Descubrir!</p></div>
+                <!-- Chat Asistente Bot -->
+                <div class="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col h-[340px] justify-between">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
+                            <span class="font-bold text-xs text-vibeIndigo">Asistente de Viajes Virtual</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400 font-semibold">Responde en vivo</span>
                     </div>
+
+                    <div id="chatBox" class="flex-1 overflow-y-auto my-3 space-y-3 text-xs pr-2">
+                        <div class="text-left space-y-0.5">
+                            <span class="text-[10px] font-bold text-vibePurpura flex items-center gap-1"><i data-lucide="bot" class="w-3 h-3"></i> Asistente VibeVoyage</span>
+                            <div><p class="bg-slate-100 text-slate-700 p-2.5 rounded-2xl rounded-tl-none inline-block max-w-[85%] text-xs border border-slate-200/60">¡Hola! Soy tu asistente de viajes. Puedes consultarme sugerencias sobre tus destinos o itinerario.</p></div>
+                        </div>
+                    </div>
+
                     <div class="flex gap-2 pt-2 border-t border-slate-100">
-                        <input type="text" id="inputMensaje" placeholder="Mensaje..." class="flex-1 bg-slate-50 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-vibePurpura">
-                        <button onclick="enviarMensaje()" class="bg-vibeVerde text-white p-2 rounded-xl hover:bg-emerald-500 transition-all"><i data-lucide="send" class="w-4 h-4"></i></button>
+                        <input type="text" id="inputMensaje" placeholder="Escribe tu consulta..." class="flex-1 bg-slate-50 rounded-2xl px-4 py-2.5 text-xs focus:outline-none focus:border-vibePurpura border border-slate-100">
+                        <button onclick="enviarMensaje()" aria-label="Enviar mensaje al asistente" class="bg-vibeVerde text-white px-4 py-2.5 rounded-2xl hover:bg-emerald-500 transition-all focus:outline-none">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Calculadora Financiera de Gastos -->
+            <!-- Calculadora Financiera Integrada -->
             <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm space-y-4">
-                <h3 class="font-bold text-lg border-b border-slate-100 pb-2">División de Gastos</h3>
+                <div class="border-b border-slate-100 pb-3 flex justify-between items-center">
+                    <div>
+                        <h3 class="font-bold text-base text-vibeIndigo">Calculadora de Gastos</h3>
+                        <span class="text-[10px] text-slate-400 font-semibold">Consolidado en moneda local (CRC)</span>
+                    </div>
+                    <span class="text-[10px] bg-slate-100 text-slate-600 font-bold px-2.5 py-1 rounded-lg">1 USD ≈ ₡515</span>
+                </div>
+
                 <div class="grid grid-cols-2 gap-2 text-xs">
-                    <div><label class="text-slate-400 font-bold block mb-1">Viajeros</label><input type="number" id="inputPersonas" value="2" oninput="calcularTodo()" class="w-full bg-slate-50 p-2 rounded-lg font-bold"></div>
-                    <div><label class="text-slate-400 font-bold block mb-1">Presupuesto (₡)</label><input type="number" id="inputPresupuesto" value="500000" oninput="calcularTodo()" class="w-full bg-slate-50 p-2 rounded-lg font-bold"></div>
+                    <div>
+                        <label class="text-slate-400 font-bold block mb-1 text-[10px] uppercase">Número de Viajeros</label>
+                        <input type="number" id="inputPersonas" value="2" min="1" oninput="calcularTodo()" class="w-full bg-slate-50 p-2.5 rounded-xl font-bold text-vibeIndigo border border-slate-100">
+                    </div>
+                    <div>
+                        <label class="text-slate-400 font-bold block mb-1 text-[10px] uppercase">Presupuesto Total (₡)</label>
+                        <input type="number" id="inputPresupuesto" value="618000" min="0" oninput="calcularTodo()" class="w-full bg-slate-50 p-2.5 rounded-xl font-bold text-vibeVerde border border-slate-100">
+                    </div>
                 </div>
-                <div class="grid grid-cols-2 gap-2 pt-2">
-                    <div class="bg-[#FFFAF0] p-3 rounded-xl border border-vibeCoral/20"><span class="text-[10px] text-slate-400 block">Total Gastos</span><div id="txtTotal" class="font-bold text-vibeCoral">₡0.00</div></div>
-                    <div class="bg-[#FFFAF0] p-3 rounded-xl border border-vibeVerde/20"><span class="text-[10px] text-slate-400 block">Por Persona</span><div id="txtIndividual" class="font-bold text-vibeVerde">₡0.00</div></div>
+
+                <div class="grid grid-cols-2 gap-2 pt-1">
+                    <div class="bg-vibeCrema p-3 rounded-2xl border border-vibeCoral/20">
+                        <span class="text-[10px] text-slate-400 block font-bold uppercase">Total Gastos</span>
+                        <div id="txtTotal" class="font-bold text-vibeCoral text-sm md:text-base">₡0.00</div>
+                    </div>
+                    <div class="bg-vibeCrema p-3 rounded-2xl border border-vibeVerde/20">
+                        <span class="text-[10px] text-slate-400 block font-bold uppercase">Por Persona</span>
+                        <div id="txtIndividual" class="font-bold text-vibeVerde text-sm md:text-base">₡0.00</div>
+                    </div>
                 </div>
+
                 <div class="space-y-1">
-                    <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden"><div id="barraProgreso" class="bg-vibeVerde h-full" style="width: 0%"></div></div>
+                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden p-0.5 border border-slate-200/50">
+                        <div id="barraProgreso" class="bg-vibeVerde h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
                     <p id="txtBalance" class="text-[11px] text-slate-400 font-semibold text-center"></p>
                 </div>
-                <div class="space-y-2 text-xs">
-                    <div class="flex justify-between items-center p-2 bg-slate-50 rounded-xl"><span>✈️ Transporte</span><input type="number" id="gastoTransporte" value="120000" oninput="calcularTodo()" class="w-24 bg-transparent text-right font-bold focus:outline-none"></div>
-                    <div class="flex justify-between items-center p-2 bg-slate-50 rounded-xl"><span>🏨 Hospedaje</span><input type="number" id="gastoHospedaje" value="180000" oninput="calcularTodo()" class="w-24 bg-transparent text-right font-bold focus:outline-none"></div>
-                    <div class="flex justify-between items-center p-2 bg-slate-50 rounded-xl"><span>🍕 Alimentación</span><input type="number" id="gastoComida" value="50000" oninput="calcularTodo()" class="w-24 bg-transparent text-right font-bold focus:outline-none"></div>
+
+                <div class="space-y-2 text-xs pt-1">
+                    <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-xl border border-slate-100">
+                        <span class="font-medium text-slate-600">✈️ Transporte</span>
+                        <input type="number" id="gastoTransporte" value="120000" min="0" oninput="calcularTodo()" class="w-24 bg-transparent text-right font-bold text-vibeIndigo focus:outline-none">
+                    </div>
+                    <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-xl border border-slate-100">
+                        <span class="font-medium text-slate-600">🏨 Hospedaje</span>
+                        <input type="number" id="gastoHospedaje" value="180000" min="0" oninput="calcularTodo()" class="w-24 bg-transparent text-right font-bold text-vibeIndigo focus:outline-none">
+                    </div>
+                    <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-xl border border-slate-100">
+                        <span class="font-medium text-slate-600">🍕 Alimentación</span>
+                        <input type="number" id="gastoComida" value="80000" min="0" oninput="calcularTodo()" class="w-24 bg-transparent text-right font-bold text-vibeIndigo focus:outline-none">
+                    </div>
+                    <div class="flex justify-between items-center p-2.5 bg-emerald-50/50 rounded-xl border border-emerald-100">
+                        <span class="font-semibold text-emerald-800">🎟️ Actividades (Itinerario)</span>
+                        <input type="number" id="gastoActividades" value="0" readonly class="w-28 bg-transparent text-right font-bold text-emerald-700 focus:outline-none cursor-default">
+                    </div>
                 </div>
             </div>
         </section>
 
-    </div>
+    </main>
 
-    <!-- MODAL DETALLES DE DESTINO (VER) -->
-    <div id="modalDestino" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+    <!-- Contenedor Toasts -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+    <!-- Modales -->
+    <div id="modalDestino" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl space-y-4 p-6 relative">
-            <button onclick="cerrarModalDestino()" class="absolute top-4 right-4 bg-slate-100 hover:bg-slate-200 p-2 rounded-full text-slate-600 transition-all">
+            <button onclick="cerrarModalDestino()" aria-label="Cerrar modal" class="absolute top-4 right-4 bg-slate-100 hover:bg-slate-200 p-2 rounded-full text-slate-600 transition-all focus:outline-none z-10">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
             <div id="modalDestinoContenido"></div>
         </div>
     </div>
 
-    <!-- MODAL DE AGREGAR/EDITAR EVENTO EN ITINERARIO -->
-    <div id="modalEvento" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+    <div id="modalEvento" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative space-y-4">
-            <button onclick="cerrarModalEvento()" class="absolute top-4 right-4 bg-slate-100 hover:bg-slate-200 p-2 rounded-full text-slate-600 transition-all">
+            <button onclick="cerrarModalEvento()" aria-label="Cerrar modal" class="absolute top-4 right-4 bg-slate-100 hover:bg-slate-200 p-2 rounded-full text-slate-600 transition-all focus:outline-none">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
             <h3 id="modalEventoTitulo" class="font-bold text-xl text-vibeIndigo">Agregar Evento</h3>
             
-            <form onsubmit="guardarEvento(event)" class="space-y-3 text-sm">
+            <form onsubmit="guardarEvento(event)" class="space-y-3 text-xs">
                 <input type="hidden" id="eventoId">
                 <div>
-                    <label class="block text-xs font-bold text-slate-500 mb-1">Título del Evento</label>
-                    <input type="text" id="eventoNombre" required placeholder="Ej: Paseo en góndola por el Gran Canal" class="w-full bg-slate-50 p-3 rounded-xl border border-slate-200 focus:outline-none focus:border-vibeCoral">
+                    <label class="block font-bold text-slate-500 mb-1">Título de la Actividad *</label>
+                    <input type="text" id="eventoNombre" required placeholder="Ej: Tour guiado en barco" class="w-full bg-slate-50 p-3 rounded-xl border border-slate-200 focus:outline-none focus:border-vibeCoral">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-500 mb-1">Ubicación / Destino</label>
-                    <input type="text" id="eventoUbicacion" required placeholder="Ej: Venecia, Italia" class="w-full bg-slate-50 p-3 rounded-xl border border-slate-200 focus:outline-none focus:border-vibeCoral">
+                    <label class="block font-bold text-slate-500 mb-1">Ubicación / Destino *</label>
+                    <input type="text" id="eventoUbicacion" required placeholder="Ej: Santorini, Grecia" class="w-full bg-slate-50 p-3 rounded-xl border border-slate-200 focus:outline-none focus:border-vibeCoral">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-500 mb-1">Descripción / Detalles</label>
-                    <textarea id="eventoDescripcion" rows="2" placeholder="Detalles o anotaciones adicionales..." class="w-full bg-slate-50 p-3 rounded-xl border border-slate-200 focus:outline-none focus:border-vibeCoral"></textarea>
+                    <label class="block font-bold text-slate-500 mb-1">Descripción o Notas</label>
+                    <textarea id="eventoDescripcion" rows="2" placeholder="Detalles importantes del evento..." class="w-full bg-slate-50 p-3 rounded-xl border border-slate-200 focus:outline-none focus:border-vibeCoral"></textarea>
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 mb-1">Hora</label>
+                        <label class="block font-bold text-slate-500 mb-1">Hora Estimada *</label>
                         <input type="text" id="eventoHora" required placeholder="Ej: 09:00 AM" class="w-full bg-slate-50 p-3 rounded-xl border border-slate-200 focus:outline-none focus:border-vibeCoral">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 mb-1">Costo ($)</label>
-                        <input type="number" step="0.01" id="eventoCosto" required placeholder="80.00" class="w-full bg-slate-50 p-3 rounded-xl border border-slate-200 focus:outline-none focus:border-vibeCoral">
+                        <label class="block font-bold text-slate-500 mb-1">Costo ($ USD) *</label>
+                        <input type="number" step="0.01" min="0" id="eventoCosto" required placeholder="50.00" class="w-full bg-slate-50 p-3 rounded-xl border border-slate-200 focus:outline-none focus:border-vibeCoral">
                     </div>
                 </div>
-                <div class="pt-2 flex justify-end gap-2">
-                    <button type="button" onclick="cerrarModalEvento()" class="px-4 py-2 rounded-xl text-slate-500 hover:bg-slate-100 font-semibold text-xs">Cancelar</button>
-                    <button type="submit" class="px-5 py-2 rounded-xl bg-vibeVerde text-white font-bold text-xs hover:bg-emerald-500 transition-all">Guardar Evento</button>
+                <div class="pt-3 flex justify-end gap-2">
+                    <button type="button" onclick="cerrarModalEvento()" class="px-4 py-2.5 rounded-xl text-slate-500 hover:bg-slate-100 font-semibold">Cancelar</button>
+                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-vibeVerde text-white font-bold hover:bg-emerald-500 transition-all shadow-sm">Guardar Evento</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <div id="modalConfirmarEliminar" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl text-center space-y-4">
+            <div class="w-12 h-12 bg-rose-100 text-rose-500 rounded-full flex items-center justify-center mx-auto">
+                <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg text-vibeIndigo">¿Eliminar evento?</h3>
+                <p id="confirmarTextoEvento" class="text-xs text-slate-500 mt-1 leading-relaxed"></p>
+            </div>
+            <div class="flex gap-2 pt-2">
+                <button onclick="cerrarModalConfirmar()" class="w-full py-2.5 rounded-xl bg-slate-100 text-slate-600 font-semibold text-xs hover:bg-slate-200 transition-all">Cancelar</button>
+                <button onclick="ejecutarEliminacionEvento()" class="w-full py-2.5 rounded-xl bg-rose-500 text-white font-bold text-xs hover:bg-rose-600 transition-all shadow-sm">Sí, borrar</button>
+            </div>
         </div>
     </div>
 
